@@ -1,6 +1,8 @@
 SELECT
+    date_date,
     products_id,
     orders_id,
+    revenue,
     quantity,
     purchase_price,
     CAST(quantity*purchase_price as INT64) as purchase_cost,
