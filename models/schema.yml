@@ -1,0 +1,118 @@
+version: 2
+
+sources:
+  - name: raw
+    schema: gz_raw_data
+    tables:
+      - name: sales
+        identifier: raw_gz_sales
+        description: sales of greenweez / we have on row per product_id found in each orders_id
+        columns:
+          - name: date_date
+            description: date of purchase
+          - name: orders_id
+            description: identifier of the order
+          - name: products_id
+            description: identifier of the product
+          - name: revenue
+            description: revenue by order
+          - name: quantity
+            description: quantity ordered
+      - name: product
+        identifier: raw_gz_product
+        description: list of products of greenweez / list of purchase_price by products_id
+        columns:
+          - name: products_id
+            description: identifier of the product
+            tests:
+              - unique
+              - not_null                 
+          - name: purchase_price
+            description: purchase price of the product
+      - name: ship
+        identifier: raw_gz_ship
+        description: list of shipping fee per order
+        columns:
+          - name: orders_id
+            description: identifier of the order
+          - name: shipping_fee
+            description: fee of shipping of the order
+          - name: logcost
+            description: cost of warehousing the order
+          - name: ship_cost
+            description: cost of the shipping per order
+
+  - name: intermediate
+    tables:
+      - name: sales_margin
+        identifier: int_sales_margin
+        description: calculation of purchase cost & margin per products id
+        columns: 
+          - name: date_date
+            description: date of the order
+          - name: products_id
+            description: identifier of the product
+          - name: orders_id
+            description: identifier of the order
+          - name: revenue
+            description: revenue of the order
+          - name: quantity
+            description: quantity of the product in the order
+          - name: purchase_price
+            description: acquisition price of the product
+          - name: purchase_cost
+            description: quantity x purchase price
+          - name: margin
+            description: revenue - purchase cost
+      - name: orders_operational
+        identifier: int_orders_operational
+        description: calculation of the operational margin
+        columns:
+          - name: orders_id
+            description: identifier of the order
+          - name: date_date
+            description: date of the order
+          - name: operational_margin
+            description: margin + shipping fee + log cost - ship cost
+          - name: quantity
+            description: quantity of product in the order
+      - name: orders_margin
+        identifier: int_orders_margin
+        description: daily count of orders and daily sum of revenue, quantity, purchase cost and margin
+        columns:
+          - name: orders_id
+            description: identifier of the order
+          - name: date_date
+            description: date of the order
+          - name: revenue
+            description: sum of orders revenue 
+          - name: quantity
+            description: sum of orders quantity
+          - name: purchase_cost
+            description: sum of orders purchase cost
+          - name: margin
+            description: sum of orders margin
+  
+  - name: mart
+    tables:
+      - name: finance_days
+        description: total numbers per days
+        columns:
+          - name: nb_transactions
+            description: number of orders in a day
+          - name: revenue
+            description: sum of revenue on a day
+          - name: average_basket
+            description: average revenue per order
+          - name: margin
+            description: sum of margin on a day
+          - name: operational_margin
+            description: sum of operational margin on a day
+          - name: purchase_cost
+            description: sum of purchase cost on a day
+          - name: logcost
+            description: sum of log cost on a day
+          - name: quantity
+            description: sum of quantity sold on a day
+
+          
