@@ -96,25 +96,26 @@ sources:
   - name: mart
     tables:
       - name: finance
+        description: contains finance data
         tables:
-      - name: finance_days
-        description: total numbers per days
-        columns:
-          - name: nb_transactions
-            description: number of orders in a day
-          - name: revenue
-            description: sum of revenue on a day
-          - name: average_basket
-            description: average revenue per order
-          - name: margin
-            description: sum of margin on a day
-          - name: operational_margin
-            description: sum of operational margin on a day
-          - name: purchase_cost
-            description: sum of purchase cost on a day
-          - name: logcost
-            description: sum of log cost on a day
-          - name: quantity
-            description: sum of quantity sold on a day
+          - name: finance_days
+            description: total numbers per days
+            columns:
+              - name: nb_transactions
+                description: number of orders in a day
+              - name: revenue
+                description: sum of revenue on a day
+              - name: average_basket
+                description: average revenue per order
+              - name: margin
+                description: sum of margin on a day
+              - name: operational_margin
+                description: sum of operational margin on a day
+              - name: purchase_cost
+                description: sum of purchase cost on a day
+              - name: logcost
+                description: sum of log cost on a day
+              - name: quantity
+                description: sum of quantity sold on a day
 
           
