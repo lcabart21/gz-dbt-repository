@@ -5,6 +5,8 @@ select
     round(avg(revenue),2) as average_basket,
     round(sum(margin),2) as margin,
     round(sum(margin + shipping_fee - logcost - ship_cost),2) as operational_margin,
+    round(sum(shipping_fee),2) as shipping_fee,
+    round(sum(ship_cost),2) as ship_cost,
     round(sum(purchase_cost),2) as purchase_cost,
     round(sum(logcost),2) as logcost,
     sum(quantity) as quantity
